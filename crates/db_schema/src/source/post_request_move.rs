@@ -1,6 +1,6 @@
 use crate::newtypes::{CommunityId, DbUrl, LanguageId, PersonId, PostId};
 #[cfg(feature = "full")]
-use crate::schema::{post_move_request};
+use crate::schema::{post_request_move};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
@@ -11,10 +11,10 @@ use typed_builder::TypedBuilder;
 #[skip_serializing_none]
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "full", derive(Queryable, Identifiable, TS))]
-#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
+#[cfg_attr(feature = "full", diesel(table_name = post_request_move))]
 #[cfg_attr(feature = "full", ts(export))]
 
-pub struct PostMoveRequest {
+pub struct PostRequestMove {
   pub id: PostId,
   pub name: String,
   #[cfg_attr(feature = "full", ts(type = "string"))]
@@ -68,8 +68,8 @@ pub struct PostMoveRequest {
 #[derive(Debug, Clone, TypedBuilder)]
 #[builder(field_defaults(default))]
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
-pub struct PostMoveRequestInsertForm {
+#[cfg_attr(feature = "full", diesel(table_name = post_request_move))]
+pub struct PostRequestMoveInsertForm {
   #[builder(!default)]
   pub name: String,
   #[builder(!default)]
@@ -106,8 +106,8 @@ pub struct PostMoveRequestInsertForm {
 
 #[derive(Debug, Clone, Default)]
 #[cfg_attr(feature = "full", derive(AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
-pub struct PostMoveRequestUpdateForm {
+#[cfg_attr(feature = "full", diesel(table_name = post_request_move))]
+pub struct PostRequestMoveUpdateForm {
   pub name: Option<String>,
   pub nsfw: Option<bool>,
   pub url: Option<Option<DbUrl>>,
