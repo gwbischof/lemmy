@@ -1,0 +1,86 @@
+#[cfg(feature = "full")]
+use crate::newtypes::LtreeDef;
+use crate::newtypes::{CommentId, DbUrl, LanguageId, PersonId, PostId};
+#[cfg(feature = "full")]
+use crate::schema::{comment_bid};
+use chrono::{DateTime, Utc};
+#[cfg(feature = "full")]
+use diesel_ltree::Ltree;
+use serde::{Deserialize, Serialize};
+use serde_with::skip_serializing_none;
+#[cfg(feature = "full")]
+use ts_rs::TS;
+use typed_builder::TypedBuilder;
+
+#[skip_serializing_none]
+#[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "full", derive(Queryable, Associations, Identifiable, TS))]
+#[cfg_attr(feature = "full", ts(export))]
+#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::post::Post)))]
+#[cfg_attr(feature = "full", diesel(table_name = comment_bid))]
+/// A comment.
+pub struct CommentBid {
+  pub id: CommentId,
+  pub creator_id: PersonId,
+  pub post_id: PostId,
+  pub content: String,
+  /// Whether the comment has been removed.
+  pub removed: bool,
+  pub published: DateTime<Utc>,
+  pub updated: Option<DateTime<Utc>>,
+  /// Whether the comment has been deleted by its creator.
+  pub deleted: bool,
+  /// The federated activity id / ap_id.
+  pub ap_id: DbUrl,
+  /// Whether the comment is local.
+  pub local: bool,
+  #[cfg(feature = "full")]
+  #[cfg_attr(feature = "full", serde(with = "LtreeDef"))]
+  #[cfg_attr(feature = "full", ts(type = "string"))]
+  /// The path / tree location of a comment, separated by dots, ending with the comment's id. Ex: 0.24.27
+  pub path: Ltree,
+  #[cfg(not(feature = "full"))]
+  pub path: String,
+  /// Whether the comment has been distinguished(speaking officially) by a mod.
+  pub distinguished: bool,
+  pub language_id: LanguageId,
+  pub amount: f32,
+}
+
+#[derive(Debug, Clone, TypedBuilder)]
+#[builder(field_defaults(default))]
+#[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
+#[cfg_attr(feature = "full", diesel(table_name = comment))]
+pub struct CommentBidInsertForm {
+  #[builder(!default)]
+  pub creator_id: PersonId,
+  #[builder(!default)]
+  pub post_id: PostId,
+  #[builder(!default)]
+  pub content: String,
+  pub removed: Option<bool>,
+  pub published: Option<DateTime<Utc>>,
+  pub updated: Option<DateTime<Utc>>,
+  pub deleted: Option<bool>,
+  pub ap_id: Option<DbUrl>,
+  pub local: Option<bool>,
+  pub distinguished: Option<bool>,
+  pub language_id: Option<LanguageId>,
+  pub amount: f32,
+}
+
+#[derive(Debug, Clone, Default)]
+#[cfg_attr(feature = "full", derive(AsChangeset))]
+#[cfg_attr(feature = "full", diesel(table_name = comment_bid))]
+pub struct CommentBidUpdateForm {
+  pub content: Option<String>,
+  pub removed: Option<bool>,
+  // Don't use a default naive_now here, because the create function does a lot of comment updates
+  pub updated: Option<Option<DateTime<Utc>>>,
+  pub deleted: Option<bool>,
+  pub ap_id: Option<DbUrl>,
+  pub local: Option<bool>,
+  pub distinguished: Option<bool>,
+  pub language_id: Option<LanguageId>,
+  pub amount: Option<f32>,
+}
