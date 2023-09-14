@@ -1,6 +1,6 @@
-use crate::newtypes::{CommunityId, DbUrl, LanguageId, PersonId, RequestId};
+use crate::newtypes::{CommunityId, DbUrl, LanguageId, PersonId, PostId};
 #[cfg(feature = "full")]
-use crate::schema::{request, request_like, request_read, request_saved};
+use crate::schema::{post_move_request};
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
@@ -11,11 +11,11 @@ use typed_builder::TypedBuilder;
 #[skip_serializing_none]
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "full", derive(Queryable, Identifiable, TS))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request))]
+#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
 #[cfg_attr(feature = "full", ts(export))]
-/// A move_request.
-pub struct MoveRequest {
-  pub id: RequestId,
+
+pub struct PostMoveRequest {
+  pub id: PostId,
   pub name: String,
   #[cfg_attr(feature = "full", ts(type = "string"))]
   /// An optional link / url for the request.
@@ -54,13 +54,22 @@ pub struct MoveRequest {
   pub featured_community: bool,
   /// Whether the request is featured to its site.
   pub featured_local: bool,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: String,
+  pub pickup_time: DateTime<Utc>,
+  pub pickup_contact: String,
+  pub pickup_notes: String,
+  pub dropoff_location: String,
+  pub dropoff_time: DateTime<Utc>,
+  pub dropoff_contact: String,
+  pub dropoff_notes: String,
 }
 
 #[derive(Debug, Clone, TypedBuilder)]
 #[builder(field_defaults(default))]
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request))]
-pub struct MoveRequestInsertForm {
+#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
+pub struct PostMoveRequestInsertForm {
   #[builder(!default)]
   pub name: String,
   #[builder(!default)]
@@ -84,12 +93,21 @@ pub struct MoveRequestInsertForm {
   pub language_id: Option<LanguageId>,
   pub featured_community: Option<bool>,
   pub featured_local: Option<bool>,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: Option<String>,
+  pub pickup_time: Option<DateTime<Utc>>,
+  pub pickup_contact: Option<String>,
+  pub pickup_notes: Option<String>,
+  pub dropoff_location: Option<String>,
+  pub dropoff_time: Option<DateTime<Utc>>,
+  pub dropoff_contact: Option<String>,
+  pub dropoff_notes: Option<String>,
 }
 
 #[derive(Debug, Clone, Default)]
 #[cfg_attr(feature = "full", derive(AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request))]
-pub struct MoveRequestUpdateForm {
+#[cfg_attr(feature = "full", diesel(table_name = post_move_request))]
+pub struct PostMoveRequestUpdateForm {
   pub name: Option<String>,
   pub nsfw: Option<bool>,
   pub url: Option<Option<DbUrl>>,
@@ -108,61 +126,13 @@ pub struct MoveRequestUpdateForm {
   pub language_id: Option<LanguageId>,
   pub featured_community: Option<bool>,
   pub featured_local: Option<bool>,
-}
-
-#[derive(PartialEq, Eq, Debug)]
-#[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_like))]
-pub struct MoveRequestLike {
-  pub id: i32,
-  pub request_id: RequestId,
-  pub person_id: PersonId,
-  pub score: i16,
-  pub published: DateTime<Utc>,
-}
-
-#[derive(Clone)]
-#[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_like))]
-pub struct MoveRequestLikeForm {
-  pub request_id: RequestId,
-  pub person_id: PersonId,
-  pub score: i16,
-}
-
-#[derive(PartialEq, Eq, Debug)]
-#[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_saved))]
-pub struct MoveRequestSaved {
-  pub id: i32,
-  pub request_id: RequestId,
-  pub person_id: PersonId,
-  pub published: DateTime<Utc>,
-}
-
-#[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_saved))]
-pub struct MoveRequestSavedForm {
-  pub request_id: RequestId,
-  pub person_id: PersonId,
-}
-
-#[derive(PartialEq, Eq, Debug)]
-#[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_read))]
-pub struct MoveRequestRead {
-  pub id: i32,
-  pub request_id: RequestId,
-  pub person_id: PersonId,
-  pub published: DateTime<Utc>,
-}
-
-#[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = move_request_read))]
-pub struct MoveRequestReadForm {
-  pub request_id: RequestId,
-  pub person_id: PersonId,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: Option<String>,
+  pub pickup_time: Option<DateTime<Utc>>,
+  pub pickup_contact: Option<String>,
+  pub pickup_notes: Option<String>,
+  pub dropoff_location: Option<String>,
+  pub dropoff_time: Option<DateTime<Utc>>,
+  pub dropoff_contact: Option<String>,
+  pub dropoff_notes: Option<String>,
 }
