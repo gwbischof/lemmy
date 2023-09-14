@@ -11,10 +11,10 @@ use typed_builder::TypedBuilder;
 #[skip_serializing_none]
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "full", derive(Queryable, Identifiable, TS))]
-#[cfg_attr(feature = "full", diesel(table_name = request))]
+#[cfg_attr(feature = "full", diesel(table_name = move_request))]
 #[cfg_attr(feature = "full", ts(export))]
-/// A request.
-pub struct Request {
+/// A move_request.
+pub struct MoveRequest {
   pub id: RequestId,
   pub name: String,
   #[cfg_attr(feature = "full", ts(type = "string"))]
@@ -59,8 +59,8 @@ pub struct Request {
 #[derive(Debug, Clone, TypedBuilder)]
 #[builder(field_defaults(default))]
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = request))]
-pub struct RequestInsertForm {
+#[cfg_attr(feature = "full", diesel(table_name = move_request))]
+pub struct MoveRequestInsertForm {
   #[builder(!default)]
   pub name: String,
   #[builder(!default)]
@@ -88,8 +88,8 @@ pub struct RequestInsertForm {
 
 #[derive(Debug, Clone, Default)]
 #[cfg_attr(feature = "full", derive(AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = request))]
-pub struct RequestUpdateForm {
+#[cfg_attr(feature = "full", diesel(table_name = move_request))]
+pub struct MoveRequestUpdateForm {
   pub name: Option<String>,
   pub nsfw: Option<bool>,
   pub url: Option<Option<DbUrl>>,
@@ -112,9 +112,9 @@ pub struct RequestUpdateForm {
 
 #[derive(PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::request::Request)))]
-#[cfg_attr(feature = "full", diesel(table_name = request_like))]
-pub struct RequestLike {
+#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
+#[cfg_attr(feature = "full", diesel(table_name = move_request_like))]
+pub struct MoveRequestLike {
   pub id: i32,
   pub request_id: RequestId,
   pub person_id: PersonId,
@@ -124,8 +124,8 @@ pub struct RequestLike {
 
 #[derive(Clone)]
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = request_like))]
-pub struct RequestLikeForm {
+#[cfg_attr(feature = "full", diesel(table_name = move_request_like))]
+pub struct MoveRequestLikeForm {
   pub request_id: RequestId,
   pub person_id: PersonId,
   pub score: i16,
@@ -133,9 +133,9 @@ pub struct RequestLikeForm {
 
 #[derive(PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::request::Request)))]
-#[cfg_attr(feature = "full", diesel(table_name = request_saved))]
-pub struct RequestSaved {
+#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
+#[cfg_attr(feature = "full", diesel(table_name = move_request_saved))]
+pub struct MoveRequestSaved {
   pub id: i32,
   pub request_id: RequestId,
   pub person_id: PersonId,
@@ -143,17 +143,17 @@ pub struct RequestSaved {
 }
 
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = request_saved))]
-pub struct RequestSavedForm {
+#[cfg_attr(feature = "full", diesel(table_name = move_request_saved))]
+pub struct MoveRequestSavedForm {
   pub request_id: RequestId,
   pub person_id: PersonId,
 }
 
 #[derive(PartialEq, Eq, Debug)]
 #[cfg_attr(feature = "full", derive(Identifiable, Queryable, Associations))]
-#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::request::Request)))]
-#[cfg_attr(feature = "full", diesel(table_name = request_read))]
-pub struct RequestRead {
+#[cfg_attr(feature = "full", diesel(belongs_to(crate::source::move_request::MoveRequest)))]
+#[cfg_attr(feature = "full", diesel(table_name = move_request_read))]
+pub struct MoveRequestRead {
   pub id: i32,
   pub request_id: RequestId,
   pub person_id: PersonId,
@@ -161,8 +161,8 @@ pub struct RequestRead {
 }
 
 #[cfg_attr(feature = "full", derive(Insertable, AsChangeset))]
-#[cfg_attr(feature = "full", diesel(table_name = request_read))]
-pub struct RequestReadForm {
+#[cfg_attr(feature = "full", diesel(table_name = move_request_read))]
+pub struct MoveRequestReadForm {
   pub request_id: RequestId,
   pub person_id: PersonId,
 }
