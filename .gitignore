@@ -34,3 +34,7 @@ dev_pgdata/
 
 # database dumps
 *.sqldump
+
+# VIM
+*.swo
+*.swp
