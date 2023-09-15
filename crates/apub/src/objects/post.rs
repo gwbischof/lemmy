@@ -241,6 +241,7 @@ impl Object for ApubPost {
       let embed_title = sanitize_html_federation_opt(&embed_title);
       let embed_description = sanitize_html_federation_opt(&embed_description);
 
+      // TODO: May need to update this to display Request as ActivityPub Page.
       PostInsertForm {
         name,
         url: url.map(Into::into),
@@ -262,7 +263,6 @@ impl Object for ApubPost {
         language_id,
         featured_community: None,
         featured_local: None,
-        /// TODO: May need to update this to display Request as ActivityPub Page.
         pickup_location: None,
         pickup_time: None,
         pickup_contact: None,
