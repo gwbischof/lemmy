@@ -192,6 +192,8 @@ impl Object for ApubComment {
       distinguished: note.distinguished,
       local: Some(false),
       language_id,
+      /// TODO: May need to update this to convert a note to a comment with bid.
+      bid: None,
     };
     let parent_comment_path = parent_comment.map(|t| t.0.path);
     let timestamp: DateTime<Utc> = note.updated.or(note.published).unwrap_or_else(naive_now);
