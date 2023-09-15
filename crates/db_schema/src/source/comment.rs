@@ -48,6 +48,7 @@ pub struct Comment {
   /// Whether the comment has been distinguished(speaking officially) by a mod.
   pub distinguished: bool,
   pub language_id: LanguageId,
+  pub bid: Option<f32>,
 }
 
 #[derive(Debug, Clone, TypedBuilder)]
@@ -69,6 +70,7 @@ pub struct CommentInsertForm {
   pub local: Option<bool>,
   pub distinguished: Option<bool>,
   pub language_id: Option<LanguageId>,
+  pub bid: Option<f32>,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -84,6 +86,7 @@ pub struct CommentUpdateForm {
   pub local: Option<bool>,
   pub distinguished: Option<bool>,
   pub language_id: Option<LanguageId>,
+  pub bid: Option<f32>,
 }
 
 #[derive(PartialEq, Eq, Debug, Clone)]
