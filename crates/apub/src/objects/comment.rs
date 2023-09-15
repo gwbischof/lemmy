@@ -180,6 +180,7 @@ impl Object for ApubComment {
     let language_id =
       LanguageTag::to_language_id_single(note.language, &mut context.pool()).await?;
 
+    // TODO: May need to update this to convert a note to a comment with bid.
     let form = CommentInsertForm {
       creator_id: creator.id,
       post_id: post.id,
@@ -192,7 +193,6 @@ impl Object for ApubComment {
       distinguished: note.distinguished,
       local: Some(false),
       language_id,
-      /// TODO: May need to update this to convert a note to a comment with bid.
       bid: None,
     };
     let parent_comment_path = parent_comment.map(|t| t.0.path);
