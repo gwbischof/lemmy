@@ -58,6 +58,15 @@ pub struct Post {
   pub url_content_type: Option<String>,
   /// An optional alt_text, usable for image posts.
   pub alt_text: Option<String>,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: Option<String>,
+  pub pickup_time: Option<DateTime<Utc>>,
+  pub pickup_contact: Option<String>,
+  pub pickup_notes: Option<String>,
+  pub dropoff_location: Option<String>,
+  pub dropoff_time: Option<DateTime<Utc>>,
+  pub dropoff_contact: Option<String>,
+  pub dropoff_notes: Option<String>,
 }
 
 #[derive(Debug, Clone, TypedBuilder)]
@@ -90,6 +99,15 @@ pub struct PostInsertForm {
   pub featured_local: Option<bool>,
   pub url_content_type: Option<String>,
   pub alt_text: Option<String>,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: Option<String>,
+  pub pickup_time: Option<DateTime<Utc>>,
+  pub pickup_contact: Option<String>,
+  pub pickup_notes: Option<String>,
+  pub dropoff_location: Option<String>,
+  pub dropoff_time: Option<DateTime<Utc>>,
+  pub dropoff_contact: Option<String>,
+  pub dropoff_notes: Option<String>,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -116,6 +134,15 @@ pub struct PostUpdateForm {
   pub featured_local: Option<bool>,
   pub url_content_type: Option<Option<String>>,
   pub alt_text: Option<Option<String>>,
+  /// The following are the fields that have been added to Post.
+  pub pickup_location: Option<String>,
+  pub pickup_time: Option<DateTime<Utc>>,
+  pub pickup_contact: Option<String>,
+  pub pickup_notes: Option<String>,
+  pub dropoff_location: Option<String>,
+  pub dropoff_time: Option<DateTime<Utc>>,
+  pub dropoff_contact: Option<String>,
+  pub dropoff_notes: Option<String>,
 }
 
 #[derive(PartialEq, Eq, Debug)]
