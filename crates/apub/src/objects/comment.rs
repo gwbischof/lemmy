@@ -178,6 +178,8 @@ impl Object for ApubComment {
       distinguished: note.distinguished,
       local: Some(false),
       language_id,
+      /// TODO: May need to update this to convert a note to a comment with bid.
+      bid: None,
     };
     let parent_comment_path = parent_comment.map(|t| t.0.path);
     let comment = Comment::create(&mut context.pool(), &form, parent_comment_path.as_ref()).await?;
