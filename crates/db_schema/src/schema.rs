@@ -91,7 +91,7 @@ diesel::table! {
         path -> Ltree,
         distinguished -> Bool,
         language_id -> Int4,
-        bid -> Int4
+        bid -> Nullable<Int4>
     }
 }
 
