@@ -91,7 +91,6 @@ diesel::table! {
         path -> Ltree,
         distinguished -> Bool,
         language_id -> Int4,
-        bid -> Nullable<Int4>
     }
 }
 
@@ -693,11 +692,11 @@ diesel::table! {
         featured_community -> Bool,
         featured_local -> Bool,
         pickup_location -> Nullable<Text>,
-        pickup_time -> Nullable<Timestamptz>,
+        pickup_time -> Nullable<Timestamp>,
         pickup_contact -> Nullable<Text>,
         pickup_notes -> Nullable<Text>,
         dropoff_location -> Nullable<Text>,
-        dropoff_time -> Nullable<Timestamptz>,
+        dropoff_time -> Nullable<Timestamp>,
         dropoff_contact -> Nullable<Text>,
         dropoff_notes -> Nullable<Text>,
     }
