@@ -325,6 +325,7 @@ mod tests {
       distinguished: false,
       local: true,
       language_id: LanguageId::default(),
+      bid: None,
     };
 
     let child_comment_form = CommentInsertForm::builder()

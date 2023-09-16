@@ -420,6 +420,14 @@ mod tests {
       language_id: Default::default(),
       featured_community: false,
       featured_local: false,
+      pickup_location: None,
+      pickup_time: None,
+      pickup_contact: None,
+      pickup_notes: None,
+      dropoff_location: None,
+      dropoff_time: None,
+      dropoff_contact: None,
+      dropoff_notes: None,
     };
 
     // Post Like
