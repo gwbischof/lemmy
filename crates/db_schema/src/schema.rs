@@ -735,11 +735,11 @@ diesel::table! {
         url_content_type -> Nullable<Text>,
         alt_text -> Nullable<Text>,
         pickup_location -> Nullable<Text>,
-        pickup_time -> Nullable<Timestamp>,
+        pickup_time -> Nullable<Timestamptz>,
         pickup_contact -> Nullable<Text>,
         pickup_notes -> Nullable<Text>,
         dropoff_location -> Nullable<Text>,
-        dropoff_time -> Nullable<Timestamp>,
+        dropoff_time -> Nullable<Timestamptz>,
         dropoff_contact -> Nullable<Text>,
         dropoff_notes -> Nullable<Text>,
     }
