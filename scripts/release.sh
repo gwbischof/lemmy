@@ -14,7 +14,7 @@ cd $CWD/../
 # IE, when the third semver is a number, not '2-rc'
 if [ ! -z "${third_semver##*[!0-9]*}" ]; then
   pushd docker
-  sed -i "s/dessalines\/lemmy:.*/dessalines\/lemmy:$new_tag/" docker-compose.yml
+  sed -i "s/dessalines\/lemmy:.*/gbischof\/lemmy:$new_tag/" docker-compose.yml
   sed -i "s/dessalines\/lemmy-ui:.*/dessalines\/lemmy-ui:$new_tag/" docker-compose.yml
   sed -i "s/dessalines\/lemmy-ui:.*/dessalines\/lemmy-ui:$new_tag/" federation/docker-compose.yml
   git add docker-compose.yml
