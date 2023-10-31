@@ -14,5 +14,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Pull & update submodules recursively
+      run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          
     - name: Build the Docker image
       run: docker build . --file docker/Dockerfile --tag my-image-name:$(date +%s)
