@@ -1,5 +1,5 @@
 # See the documentation for available config fields and descriptions:
 # https://join-lemmy.org/docs/en/administration/configuration.html
 {
-  hostname: lemmy-alpha
+  hostname: movers-market
 }

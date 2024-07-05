@@ -46,11 +46,11 @@ ask_for_db_config() {
       read -p "Password: password"
       read -p "Port:  " port
       #echo
-      
+
       #echo "The database configuration is:"
       #print_config
       #echo
-      
+
       config_ok_valid=0
       while [ "$config_ok_valid" == 0 ]
       do

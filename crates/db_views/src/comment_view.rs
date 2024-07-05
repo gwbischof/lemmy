@@ -1044,6 +1044,7 @@ mod tests {
         distinguished: false,
         path: data.inserted_comment_0.clone().path,
         language_id: LanguageId(37),
+        bid: None,
       },
       creator: Person {
         id: data.timmy_local_user_view.person.id,
@@ -1092,6 +1093,14 @@ mod tests {
         featured_community: false,
         featured_local: false,
         url_content_type: None,
+        pickup_location: None,
+        pickup_time: None,
+        pickup_contact: None,
+        pickup_notes: None,
+        dropoff_location: None,
+        dropoff_time: None,
+        dropoff_contact: None,
+        dropoff_notes: None,
       },
       community: Community {
         id: data.inserted_community.id,
