@@ -4,7 +4,7 @@ on:
   release:
     types: [published]
   push:
-    branches: [ "prod" ]
+    branches: [ "prod", "v0.20.0" ]
   create:
     tags:
   workflow_dispatch:
