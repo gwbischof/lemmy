@@ -12,7 +12,7 @@ services:
       # Note, change the left number if port 1236 is already in use on your system
       # You could use port 80 if you won't use a reverse proxy
       - "1236:1236"
-      - "8536:8536"
+      - "80:8536"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro,Z
     restart: unless-stopped
@@ -23,7 +23,7 @@ services:
 
   lemmy:
     # use "image" to pull down an already compiled lemmy. make sure to comment out "build".
-    # image: dessalines/lemmy:0.19.6
+    #image: dessalines/lemmy:0.19.8
     # platform: linux/x86_64 # no arm64 support. uncomment platform if using m1.
     # use "build" to build your local lemmy server image for development. make sure to comment out "image".
     # run: docker compose up --build
@@ -53,7 +53,7 @@ services:
 
   lemmy-ui:
     # use "image" to pull down an already compiled lemmy-ui. make sure to comment out "build".
-    image: dessalines/lemmy-ui:0.19.6
+    image: dessalines/lemmy-ui:dev
     # platform: linux/x86_64 # no arm64 support. uncomment platform if using m1.
     # use "build" to build your local lemmy ui image for development. make sure to comment out "image".
     # run: docker compose up --build

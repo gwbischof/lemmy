@@ -5,7 +5,7 @@ set -e
 username=lemmy
 password=password
 dbname=lemmy
-port=5432
+port=5433
 
 yes_no_prompt_invalid() {
   echo "Invalid input. Please enter either \"y\" or \"n\"." 1>&2
@@ -46,11 +46,11 @@ ask_for_db_config() {
       read -p "Password: password"
       read -p "Port:  " port
       #echo
-      
+
       #echo "The database configuration is:"
       #print_config
       #echo
-      
+
       config_ok_valid=0
       while [ "$config_ok_valid" == 0 ]
       do
